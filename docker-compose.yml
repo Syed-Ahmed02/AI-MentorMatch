@@ -1,0 +1,14 @@
+services:
+  ai-career-coach:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
