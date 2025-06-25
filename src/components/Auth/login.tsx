@@ -1,6 +1,6 @@
 'use client'
 import { useState, FormEvent } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Login() {
   const [email, setEmail] = useState<string>('');

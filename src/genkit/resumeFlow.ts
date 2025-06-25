@@ -1,7 +1,7 @@
 import { devLocalRetrieverRef } from '@genkit-ai/dev-local-vectorstore';
 import { vertexAI } from '@genkit-ai/vertexai';
 import { z } from 'genkit';
-import { ai } from '@/genkit/indexResume';
+import { ai } from '../genkit/indexResume';
 
 // Define the retriever reference
 export const menuRetriever = devLocalRetrieverRef('resourcesIndex');
@@ -32,7 +32,6 @@ If you don't know or the information is not in the resume, say so clearly.
 Do not make up or add information not present in the resume.
 Be professional and objective in your responses.
 
-Context 7 has been used to retrieve the most relevant information from the resume.
 
 Question: ${query}`,
       docs,

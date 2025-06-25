@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { firestoreService } from '@/lib/firestoreService';
-import { verifyIdToken } from '@/lib/firebaseAdmin';
+import { firestoreService } from '../../../lib/firestoreService';
+import { verifyIdToken } from '../../../lib/firebaseAdmin';
 
 export async function GET(request: NextRequest) {
   try {

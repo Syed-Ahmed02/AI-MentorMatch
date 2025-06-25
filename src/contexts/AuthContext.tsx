@@ -10,8 +10,8 @@ import {
   UserCredential,
   User
 } from 'firebase/auth';
-import { auth } from '@/lib/firebase.sdk';
-import { AuthContextType } from '@/types';
+import { auth } from '../lib/firebase.sdk';
+import { AuthContextType } from '../types';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 

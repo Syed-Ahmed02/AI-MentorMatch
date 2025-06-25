@@ -1,8 +1,8 @@
 'use client'
 import { useState, useEffect, useRef, FormEvent } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { addConversation, subscribeToUserMessages } from '@/services/messageService';
-import { Message } from '@/types';
+import { useAuth } from '../../contexts/AuthContext';
+import { addConversation, subscribeToUserMessages } from '../../services/messageService';
+import { Message } from '../../types';
 
 export default function ChatComponent() {
   const [messages, setMessages] = useState<Message[]>([]);

@@ -3,7 +3,7 @@ import { chunk } from 'llm-chunk';
 import { devLocalIndexerRef, devLocalVectorstore } from '@genkit-ai/dev-local-vectorstore';
 import { vertexAI } from '@genkit-ai/vertexai';
 import { z, genkit } from 'genkit';
-import { firebaseStorage } from '@/lib/firebaseStorage';
+import { firebaseStorage } from '../lib/firebaseStorage';
 
 export const ai = genkit({
   plugins: [

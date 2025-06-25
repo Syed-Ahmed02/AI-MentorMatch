@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useVapi, CALL_STATUS } from "./useVapi"
-import { MessageTypeEnum, TranscriptMessageTypeEnum } from "@/types/conversation.type"
-import { generateQuestions, InterviewQuestion, ResumeData } from "@/lib/interviewUtils"
+import { MessageTypeEnum, TranscriptMessageTypeEnum } from "../types/conversation.type"
+import { generateQuestions, InterviewQuestion, ResumeData } from "../lib/interviewUtils"
 
 interface JobDetails {
   jobTitle: string

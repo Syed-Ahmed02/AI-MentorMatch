@@ -6,10 +6,9 @@ import {
     MessageTypeEnum,
     TranscriptMessage,
     TranscriptMessageTypeEnum,
-  } from "@/types/conversation.type";
+  } from "../types/conversation.type";
 import { useEffect, useState } from "react";
-// import { MessageActionTypeEnum, useMessages } from "./useMessages";
-import { vapi } from "@/lib/vapi.sdk";
+import { vapi } from "../lib/vapi.sdk";
 
 export enum CALL_STATUS {
   INACTIVE = "inactive",

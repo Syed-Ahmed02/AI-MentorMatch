@@ -1,6 +1,6 @@
-import ResumeChat from '@/components/ResumeChat';
-import UserResumes from '@/components/UserResumes';
-import { AuthProvider } from '@/contexts/AuthContext';
+import ResumeChat from '../../components/ResumeChat';
+import UserResumes from '../../components/UserResumes';
+import { AuthProvider } from '../../contexts/AuthContext';
 
 export default function TestResumePage() {
   return (

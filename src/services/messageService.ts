@@ -16,7 +16,7 @@ import {
     DocumentData,
     Unsubscribe
   } from 'firebase/firestore';
-  import { db } from '@/lib/firebase.sdk';
+  import { db } from '../lib/firebase.sdk';
   import { Message, MessageInput } from '../types';
   
   // Collection name

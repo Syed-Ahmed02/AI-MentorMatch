@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/contexts/AuthContext';
-import { useAuthToken } from '@/hooks/useAuthToken';
-import { ResumeDocument } from '@/lib/firestoreService';
+import { Button } from './components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
+import { useAuth } from '../contexts/AuthContext';  
+import { useAuthToken } from '../hooks/useAuthToken';
+import { ResumeDocument } from '../lib/firestoreService';
 
 export default function UserResumes() {
   const { currentUser } = useAuth();

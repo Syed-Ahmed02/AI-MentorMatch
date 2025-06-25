@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { indexResume } from '@/genkit/indexResume';
-import { firebaseStorage } from '@/lib/firebaseStorage';
-import { firestoreService } from '@/lib/firestoreService';
-import { verifyIdToken } from '@/lib/firebaseAdmin';
+import { indexResume } from '../../../genkit/indexResume';
+import { firebaseStorage } from '../../../lib/firebaseStorage';
+import { firestoreService } from '../../../lib/firestoreService';
+import { verifyIdToken } from '../../../lib/firebaseAdmin';
 
 export async function POST(request: NextRequest) {
   try {
