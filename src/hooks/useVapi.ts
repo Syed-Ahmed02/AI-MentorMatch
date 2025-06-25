@@ -6,7 +6,7 @@ import {
     MessageTypeEnum,
     TranscriptMessage,
     TranscriptMessageTypeEnum,
-  } from "@/lib/types/conversation.type";
+  } from "@/types/conversation.type";
 import { useEffect, useState } from "react";
 // import { MessageActionTypeEnum, useMessages } from "./useMessages";
 import { vapi } from "@/lib/vapi.sdk";
@@ -91,7 +91,7 @@ export function useVapi() {
 
   const start = async () => {
     setCallStatus(CALL_STATUS.LOADING);
-    const response = vapi.start(process.env.VAPI_ASSISTANT_ID || "");
+    const response = vapi.start(process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID || "");
 
     response.then((res) => {
       console.log("call", res);
