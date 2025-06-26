@@ -2,18 +2,18 @@ import Link from 'next/link'
 
 export default function InterviewSidebar() {
   const navigationItems = [
-    { name: 'Dashboard', href: '/dashboard', icon: '🏠' },
+    { name: 'Mock Interviews', href: '/dashboard', icon: '🏠' },
     { name: 'Interviews', href: '/interviews', icon: '🎤', active: true },
     // { name: 'Skills', href: '/skills', icon: '📊' },
     // { name: 'Resources', href: '/resources', icon: '📚' },
-    { name: 'Profile', href: '/profile', icon: '👤' },
+    // { name: 'Profile', href: '/profile', icon: '👤' },
   ]
 
   const interviewFilters = [
     { name: 'All Interviews', count: 12, active: true },
-    { name: 'Technical', count: 5 },
-    { name: 'Behavioral', count: 4 },
-    { name: 'System Design', count: 3 },
+    // { name: 'Technical', count: 5 },
+    // { name: 'Behavioral', count: 4 },
+    // { name: 'System Design', count: 3 },
   ]
 
   return (

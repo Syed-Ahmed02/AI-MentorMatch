@@ -233,9 +233,9 @@ export default function DashboardPage() {
           {/* Interview Type Card */}
           <div className="rounded-2xl p-8 bg-white shadow-xl flex flex-col border border-blue-100 items-center justify-center">
           <div className="font-semibold text-lg mb-4 text-gray-700 flex items-center gap-2">Virtual Interview</div>
-          <p className="text-gray-600 mb-6 text-center">Practice a real interview with AI. Get instant feedback on your answers.</p>
+          <p className="text-gray-600 mb-6 text-center">Practice a real time Live voice call interview with AI. Get instant feedback on your answers.</p>
           <Link href="/interview" className="inline-block px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-lg font-bold text-lg shadow-lg hover:from-blue-700 hover:to-blue-500 transition-all focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2">
-            Start Interview
+            Start Mock Interview (Live Call)
           </Link>
           </div>
         </div>
