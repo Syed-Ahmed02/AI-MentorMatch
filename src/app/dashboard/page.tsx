@@ -21,6 +21,9 @@ export default function DashboardPage() {
   const [fetchingSummary, setFetchingSummary] = useState(true);
   const [selectedSession, setSelectedSession] = useState<SessionDocument | null>(null);
   const sidebarRef = useRef<any>(null);
+  const [mentorLoading, setMentorLoading] = useState(false);
+  const [mentorError, setMentorError] = useState<string | null>(null);
+  const [mentorResult, setMentorResult] = useState<any>(null);
 
   useEffect(() => {
     async function fetchSummaryAndSessions() {
@@ -101,6 +104,40 @@ export default function DashboardPage() {
   const improvements = aiResult?.improvements || "";
   const resources = aiResult?.resources || [];
   const missingSkills = aiResult?.missingSkills || [];
+
+  // Add mock data for the table
+  const mockUsers = [
+    { name: "Alice Johnson", email: "alice.johnson@email.com", linkedin: "linkedin.com/in/alicejohnson" },
+    { name: "Bob Smith", email: "bob.smith@email.com", linkedin: "linkedin.com/in/bsmith" },
+    { name: "Charlie Lee", email: "charlie.lee@email.com", linkedin: "linkedin.com/in/charlielee" },
+    { name: "Diana Prince", email: "diana.prince@email.com", linkedin: "linkedin.com/in/dianaprince" },
+    { name: "Ethan Brown", email: "ethan.brown@email.com", linkedin: "linkedin.com/in/ethanbrown" },
+    { name: "Fiona Green", email: "fiona.green@email.com", linkedin: "linkedin.com/in/fionagreen" },
+    { name: "George White", email: "george.white@email.com", linkedin: "linkedin.com/in/georgewhite" },
+    { name: "Hannah Black", email: "hannah.black@email.com", linkedin: "linkedin.com/in/hannahblack" },
+    { name: "Ian Blue", email: "ian.blue@email.com", linkedin: "linkedin.com/in/ianblue" },
+    { name: "Julia Red", email: "julia.red@email.com", linkedin: "linkedin.com/in/juliared" },
+  ];
+
+  async function handleFindMentors() {
+    setMentorLoading(true);
+    setMentorError(null);
+    setMentorResult(null);
+    try {
+      const response = await fetch("https://n8n.syedd.com/webhook-test/ab913272-595a-49f9-8e4e-e86372d7039d", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ skills: missingSkills }),
+      });
+      if (!response.ok) throw new Error("Failed to find mentors");
+      const result = await response.json();
+      setMentorResult(result);
+    } catch (err: any) {
+      setMentorError(err.message || "Unknown error");
+    } finally {
+      setMentorLoading(false);
+    }
+  }
 
   if (fetchingSummary) {
     return <div className="min-h-screen flex items-center justify-center text-lg"><Loader2 className="animate-spin mr-2" />Loading your resume summary...</div>;
@@ -215,6 +252,19 @@ export default function DashboardPage() {
             ) : (
               <div className="text-gray-500">No resources found yet.</div>
             )}
+            {/* <button
+              className="mt-6 px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition"
+              onClick={handleFindMentors}
+              disabled={mentorLoading || missingSkills.length === 0}
+            >
+              {mentorLoading ? "Finding Mentors..." : "Find Mentors"}
+            </button>
+            {mentorError && <div className="text-red-600 mt-2">{mentorError}</div>}
+            {mentorResult && (
+              <div className="mt-4 p-4 bg-purple-50 rounded-lg text-purple-900">
+                <pre className="whitespace-pre-wrap text-sm">{JSON.stringify(mentorResult, null, 2)}</pre>
+              </div>
+            )} */}
           </div>
           {/* Interview Type Card */}
           <div className="rounded-2xl p-8 bg-white shadow-xl flex flex-col border border-blue-100 items-center justify-center">
@@ -225,7 +275,36 @@ export default function DashboardPage() {
           </Link>
           </div>
         </div>
-        
+        {/* User Directory table card at the bottom of main, only if analyzed */}
+        {aiResult && (
+          <div className="w-full max-w-4xl mx-auto mt-8 mb-8">
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-xl font-bold mb-4">Possible Mentors</h2>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Linkedin</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {mockUsers.map((user, idx) => (
+                      <tr key={idx}>
+                        <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{user.name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-gray-700">{user.email}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-blue-700 underline">
+                          <a href={`https://${user.linkedin}`} target="_blank" rel="noopener noreferrer">{user.linkedin}</a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

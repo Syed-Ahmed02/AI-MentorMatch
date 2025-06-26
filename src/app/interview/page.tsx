@@ -138,22 +138,18 @@ export default function InterviewPage() {
               </button>
               {endRequested && (
                 <div className="flex flex-col items-center">
-                  <div className="flex flex-row gap-4 w-full justify-center">
-                    <button
-                      className="mt-2 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
-                      onClick={() => setShowSummary((prev) => !prev)}
-                    >
-                      {showSummary ? "Hide Summary" : "View Summary"}
-                    </button>
-                    {showSummary && (
-                      <button
-                        className="mt-2 px-6 py-2 bg-gray-700 text-white rounded-lg font-semibold hover:bg-gray-900 transition"
+                  <button
+                    className="mt-2 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+                    onClick={() => setShowSummary((prev) => !prev)}
+                  >
+                    {showSummary ? "Hide Summary" : "View Summary"}
+                  </button>
+                  <button
+                        className="mt-4 px-6 py-2 bg-gray-700 text-white rounded-lg font-semibold hover:bg-gray-900 transition"
                         onClick={() => router.push('/dashboard')}
                       >
                         Back to Dashboard
                       </button>
-                    )}
-                  </div>
                   {showSummary && (
                     <div className="w-full mt-4">
                       <Summary transcript={transcriptArr} jobDescription={jobDescription} />

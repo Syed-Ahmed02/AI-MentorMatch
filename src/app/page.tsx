@@ -10,9 +10,9 @@ export default function LandingPage() {
             {/* Logo */}
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">AI</span>
+                <span className="text-white font-bold text-lg">IM</span>
               </div>
-              <span className="text-xl font-bold text-slate-900">Career Coach</span>
+              <span className="text-xl font-bold text-slate-900">Immploy</span>
             </div>
 
             {/* Navigation */}
@@ -53,16 +53,15 @@ export default function LandingPage() {
           <div className="text-center">
             {/* Main Heading */}
             <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
-              Master Your Career with{' '}
+              Accelerate Your Career with{' '}
               <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                AI-Powered Coaching
+                AI-Powered Interview & Resume Tools
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              Transform your interview skills with personalized AI mentors designed specifically 
-              for immigrant professionals. Practice, improve, and succeed in your career journey.
+              Immploy helps you practice interviews, analyze your resume, match with jobs, and find mentors—all powered by AI. Get instant feedback, actionable insights, and connect with a supportive community to land your next role.
             </p>
 
             {/* CTA Buttons */}
@@ -79,40 +78,48 @@ export default function LandingPage() {
             </div>
 
             {/* Feature Cards */}
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-8 max-w-5xl mx-auto">
               {/* Voice Interviews */}
               <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                   <span className="text-2xl">🎤</span>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Voice Interviews</h3>
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">Mock Interviews</h3>
                 <p className="text-slate-600">
-                  Practice with AI mentors through real-time voice conversations. 
-                  Get instant feedback and improve your communication skills.
+                  Practice technical, behavioral, and product interviews with AI mentors. Get real-time voice transcription and instant feedback.
                 </p>
               </div>
 
-              {/* Skill Analysis */}
+              {/* Resume Analysis */}
               <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow">
                 <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-2xl">📊</span>
+                  <span className="text-2xl">📄</span>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Skill Analysis</h3>
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">Resume Analysis</h3>
                 <p className="text-slate-600">
-                  Identify gaps and strengths in your professional skills. 
-                  Get personalized recommendations for improvement.
+                  Upload your resume and receive a summary, strengths, and areas for improvement. Get a resume score and actionable suggestions.
                 </p>
               </div>
 
-              {/* Resource Hub */}
+              {/* Job Matching */}
               <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow">
                 <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-2xl">📚</span>
+                  <span className="text-2xl">📝</span>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Resource Hub</h3>
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">Job Description Matching</h3>
                 <p className="text-slate-600">
-                  Access curated learning materials, courses, and resources 
-                  tailored to your career goals and skill gaps.
+                  Analyze your resume against job descriptions to identify missing skills and get tailored resources to boost your fit.
+                </p>
+              </div>
+
+              {/* Mentor Finder */}
+              <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <span className="text-2xl">🤝</span>
+                </div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">Mentor Finder</h3>
+                <p className="text-slate-600">
+                  Find possible mentors based on your missing skills and connect with professionals who can help you grow.
                 </p>
               </div>
             </div>
@@ -156,7 +163,7 @@ export default function LandingPage() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">How It Works</h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Get started in three simple steps and begin your journey to career success
+              Get started in three simple steps and unlock your career potential with Immploy
             </p>
           </div>
 
@@ -165,9 +172,9 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                 1
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">Create Your Profile</h3>
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">Upload Your Resume</h3>
               <p className="text-slate-600">
-                Set up your professional profile with your experience, skills, and career goals.
+                Start by uploading your resume and adding your job interests. Immploy will analyze your strengths and areas for improvement.
               </p>
             </div>
 
@@ -175,9 +182,9 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                 2
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">Start Practicing</h3>
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">Practice Interviews</h3>
               <p className="text-slate-600">
-                Choose your AI mentor and begin mock interviews tailored to your target role.
+                Practice mock interviews with AI mentors, get instant feedback, and improve your communication and technical skills.
               </p>
             </div>
 
@@ -185,9 +192,9 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                 3
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">Track Progress</h3>
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">Find Mentors & Resources</h3>
               <p className="text-slate-600">
-                Monitor your improvement with detailed analytics and personalized recommendations.
+                Discover mentors based on your skill gaps and access curated resources to help you land your next job.
               </p>
             </div>
           </div>
@@ -201,12 +208,12 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">AI</span>
+                  <span className="text-white font-bold text-lg">IM</span>
                 </div>
-                <span className="text-xl font-bold">Career Coach</span>
+                <span className="text-xl font-bold">Immploy</span>
               </div>
               <p className="text-slate-400">
-                Empowering immigrant professionals to succeed in their careers through AI-powered coaching.
+                Empowering all professionals to succeed in their careers through AI-powered coaching.
               </p>
             </div>
 
@@ -239,7 +246,7 @@ export default function LandingPage() {
           </div>
 
           <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
-            <p>&copy; 2024 AI Career Coach. All rights reserved.</p>
+            <p>&copy; 2024 Immploy. All rights reserved.</p>
           </div>
         </div>
       </footer>
