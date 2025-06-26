@@ -252,7 +252,7 @@ export default function DashboardPage() {
             ) : (
               <div className="text-gray-500">No resources found yet.</div>
             )}
-            {/* <button
+            {/* <buttongit
               className="mt-6 px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition"
               onClick={handleFindMentors}
               disabled={mentorLoading || missingSkills.length === 0}
@@ -275,36 +275,34 @@ export default function DashboardPage() {
           </Link>
           </div>
         </div>
-        {/* User Directory table card at the bottom of main, only if analyzed */}
-        {aiResult && (
-          <div className="w-full max-w-4xl mx-auto mt-8 mb-8">
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-xl font-bold mb-4">Possible Mentors</h2>
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Linkedin</th>
+        {/* User Directory table card at the bottom of main */}
+        <div className="w-full max-w-4xl mx-auto mt-8 mb-8">
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-bold mb-4">Possible Mentors</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Linkedin</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {mockUsers.map((user, idx) => (
+                    <tr key={idx}>
+                      <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{user.name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-700">{user.email}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-blue-700 underline">
+                        <a href={`https://${user.linkedin}`} target="_blank" rel="noopener noreferrer">{user.linkedin}</a>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {mockUsers.map((user, idx) => (
-                      <tr key={idx}>
-                        <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{user.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-gray-700">{user.email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-blue-700 underline">
-                          <a href={`https://${user.linkedin}`} target="_blank" rel="noopener noreferrer">{user.linkedin}</a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
-        )}
+        </div>
       </main>
     </div>
   );

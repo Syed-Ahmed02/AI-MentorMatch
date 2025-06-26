@@ -62,7 +62,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signup,
     login,
     logout,
-    signInWithGoogle
+    signInWithGoogle,
+    loading,
   };
 
   return (

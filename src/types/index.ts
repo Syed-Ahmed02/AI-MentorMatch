@@ -18,6 +18,7 @@ export interface AuthContextType {
   login: (email: string, password: string) => Promise<any>;
   logout: () => Promise<void>;
   signInWithGoogle: () => Promise<any>;
+  loading: boolean;
 }
 
 export interface MessageInput {
