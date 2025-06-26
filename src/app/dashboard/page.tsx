@@ -24,6 +24,7 @@ export default function DashboardPage() {
   const [mentorLoading, setMentorLoading] = useState(false);
   const [mentorError, setMentorError] = useState<string | null>(null);
   const [mentorResult, setMentorResult] = useState<any>(null);
+  const [hasAnalyzed, setHasAnalyzed] = useState(false);
 
   useEffect(() => {
     async function fetchSummaryAndSessions() {
@@ -32,7 +33,7 @@ export default function DashboardPage() {
       try {
         const resumes = await firestoreService.getUserResumes(currentUser.uid);
         if (!resumes.length) {
-          router.push('/upload-resume');
+          setResumeSummary("");
           return;
         }
         if (resumes.length > 0 && resumes[0].summary) {
@@ -53,6 +54,13 @@ export default function DashboardPage() {
     fetchSummaryAndSessions();
   }, [currentUser]);
 
+  // Redirect to upload-resume if no resume is uploaded after fetching
+  useEffect(() => {
+    if (!fetchingSummary && resumeSummary === "") {
+      router.push("/upload-resume");
+    }
+  }, [fetchingSummary, resumeSummary, router]);
+
   async function handleAnalyze(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -64,6 +72,7 @@ export default function DashboardPage() {
         input: { resumeSummary, jobDescription },
       });
       setAiResult(result);
+      setHasAnalyzed(true);
       // Save analysis as a session
       if (currentUser && resumeSummary) {
         const sessionId = await firestoreService.addSession({
@@ -181,7 +190,6 @@ export default function DashboardPage() {
                 <div className="text-yellow-800 whitespace-pre-line bg-yellow-50 rounded p-2 text-sm">{improvements}</div>
               </div>
               {summary && <div className="mt-2 text-gray-700 text-base italic">{summary}</div>}
-              <div className="mt-4 text-gray-400 text-xs">Resume Summary: {resumeSummary}</div>
             </div>
             {/* Job Description Card */}
             <div className="rounded-2xl p-8 bg-white shadow-xl flex flex-col border border-blue-100">
@@ -275,34 +283,36 @@ export default function DashboardPage() {
           </Link>
           </div>
         </div>
-        {/* User Directory table card at the bottom of main */}
-        <div className="w-full max-w-4xl mx-auto mt-8 mb-8">
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-xl font-bold mb-4">Possible Mentors</h2>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Linkedin</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {mockUsers.map((user, idx) => (
-                    <tr key={idx}>
-                      <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{user.name}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-gray-700">{user.email}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-blue-700 underline">
-                        <a href={`https://${user.linkedin}`} target="_blank" rel="noopener noreferrer">{user.linkedin}</a>
-                      </td>
+        {/* User Directory table card at the bottom of main, only if analyzed */}
+        {hasAnalyzed && (
+          <div className="w-full max-w-4xl mx-auto mt-8 mb-8">
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-xl font-bold mb-4">Possible Mentors</h2>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Linkedin</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {mockUsers.map((user, idx) => (
+                      <tr key={idx}>
+                        <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{user.name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-gray-700">{user.email}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-blue-700 underline">
+                          <a href={`https://${user.linkedin}`} target="_blank" rel="noopener noreferrer">{user.linkedin}</a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );

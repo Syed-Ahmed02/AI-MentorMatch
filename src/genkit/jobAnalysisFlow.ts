@@ -84,7 +84,7 @@ Respond in JSON with keys: score, strengths, improvements, missingSkills, summar
       // Query Pinecone
       const searchResults = await index.query({
         vector: embedding,
-        topK: 3,
+        topK: 7,
         includeMetadata: true,
       });
       // Extract resource titles or links from metadata, only keep strings
