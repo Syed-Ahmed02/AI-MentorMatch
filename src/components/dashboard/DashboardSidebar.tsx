@@ -49,7 +49,7 @@ const DashboardSidebar = forwardRef(function DashboardSidebar({ onSelectSession,
           className="w-full flex items-center justify-center gap-2 mb-6 py-3 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition shadow-lg"
           onClick={() => onPracticeInterview && onPracticeInterview()}
         >
-          <PlayCircle className="w-5 h-5" /> Practice Interview
+          <PlayCircle className="w-6 h-6" /> New Practice Session
         </button>
         <ul className="space-y-2 mb-8">
           {navigationItems.map((item) => (
