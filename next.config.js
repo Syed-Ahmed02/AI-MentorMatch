@@ -1,7 +1,7 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   /* config options here */
+  output: 'standalone',
   serverExternalPackages: [
     '@opentelemetry/sdk-node',
     '@opentelemetry/instrumentation',
@@ -33,4 +33,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig; 
+module.exports = nextConfig; 
