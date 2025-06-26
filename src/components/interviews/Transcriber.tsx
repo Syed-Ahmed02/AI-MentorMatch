@@ -63,7 +63,7 @@ function groupConsecutiveMessages(transcript: Array<{ role: string; text: string
   return groups;
 }
 
-function Transcriber({ transcript }: { transcript: Array<{ role: string; text: string }> }) {
+function Transcriber({ transcript, error }: { transcript: Array<{ role: string; text: string }>, error?: string }) {
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -76,6 +76,12 @@ function Transcriber({ transcript }: { transcript: Array<{ role: string; text: s
 
   return (
     <div className="h-full flex flex-col">
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-3 bg-red-100 text-red-800 rounded-lg font-semibold text-center border border-red-300">
+          {error}
+        </div>
+      )}
       {/* Messages Container */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-6 p-4">
         {grouped.map((group, idx) => (

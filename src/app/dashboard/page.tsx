@@ -217,41 +217,15 @@ export default function DashboardPage() {
             )}
           </div>
           {/* Interview Type Card */}
-          <div className="rounded-2xl p-8 bg-white shadow-xl flex flex-col border border-blue-100">
-            <div className="font-semibold text-lg mb-4 text-gray-700">Interview Type</div>
-            <div className="flex flex-col gap-2 mb-6">
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="interviewType"
-                  value="technical"
-                  checked={interviewType === "technical"}
-                  onChange={() => setInterviewType("technical")}
-                  className="accent-blue-600"
-                />
-                <span className="font-semibold">Technical</span>
-                <span className="text-gray-500 text-sm ml-2">Focus on technical skills, problem-solving, and role-specific knowledge.</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="interviewType"
-                  value="behavioral"
-                  checked={interviewType === "behavioral"}
-                  onChange={() => setInterviewType("behavioral")}
-                  className="accent-blue-600"
-                />
-                <span className="font-semibold">Behavioral</span>
-                <span className="text-gray-500 text-sm ml-2">Emphasizes soft skills, teamwork, leadership, and past experiences.</span>
-              </label>
-            </div>
-            <button
-              className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg font-semibold text-lg hover:from-blue-600 hover:to-blue-800 transition shadow-lg"
-            >
-              Start Interview Session
-            </button>
+          <div className="rounded-2xl p-8 bg-white shadow-xl flex flex-col border border-blue-100 items-center justify-center">
+          <div className="font-semibold text-lg mb-4 text-gray-700 flex items-center gap-2">Virtual Interview</div>
+          <p className="text-gray-600 mb-6 text-center">Practice a real interview with AI. Get instant feedback on your answers.</p>
+          <Link href="/interview" className="inline-block px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-lg font-bold text-lg shadow-lg hover:from-blue-700 hover:to-blue-500 transition-all focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2">
+            Start Interview
+          </Link>
           </div>
         </div>
+        
       </main>
     </div>
   );

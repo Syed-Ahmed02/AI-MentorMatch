@@ -48,6 +48,7 @@ export interface SessionDocument {
   resources?: { skill: string; resources: string[] }[];
   summary?: string;
   createdAt: any; // Firestore timestamp
+  transcript?: { role: string; text: string }[];
 }
 
 export class FirestoreService {

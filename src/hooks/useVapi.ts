@@ -1,15 +1,16 @@
 "use client";
 
+import { assistant } from "@/src/app/assistants/assistant";
 
 import {
-    Message,
-    MessageTypeEnum,
-    TranscriptMessage,
-    TranscriptMessageTypeEnum,
-  } from "../types/conversation.type";
+  Message,
+  MessageTypeEnum,
+  TranscriptMessage,
+  TranscriptMessageTypeEnum,
+} from "../types/conversation.type";
 import { useEffect, useState, useCallback } from "react";
-import { vapi } from "../lib/vapi.sdk";
-import { assistant } from "../app/assistants/assistant";
+// import { MessageActionTypeEnum, useMessages } from "./useMessages";
+import { vapi } from "@/src/lib/vapi.sdk";
 
 export enum CALL_STATUS {
   INACTIVE = "inactive",
@@ -31,6 +32,8 @@ export function useVapi() {
   const [audioLevel, setAudioLevel] = useState(0);
 
   const [transcript, setTranscript] = useState<{ role: string; text: string }[]>([]);
+
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const onSpeechStart = () => setIsSpeechActive(true);
@@ -77,7 +80,8 @@ export function useVapi() {
 
     const onError = (e: any) => {
       setCallStatus(CALL_STATUS.INACTIVE);
-      console.error(e);
+      setError(e?.errorMsg || e?.message || "Unknown Vapi error");
+      console.error("Vapi error:", e);
     };
 
     vapi.on("speech-start", onSpeechStart);
@@ -100,17 +104,17 @@ export function useVapi() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleStartInterview = (jobDescription: string, interviewType: string) => {
-    const context = `
-Job Description: ${jobDescription}
-Interview Type: ${interviewType}
-    `;
+  const start = (resumeSummary: string, jobDescription: string, interviewType: string) => {
+    if (!resumeSummary || !jobDescription || !interviewType) {
+      setError("Missing resume summary, job description, or interview type.");
+      return;
+    }
+    const context = `\nResume Summary: ${resumeSummary}\nJob Description: ${jobDescription}\nInterview Type: ${interviewType}`;
     const systemPromptWithContext = assistant.model.messages[0].content.replace(
       "{{context}}",
       context
     );
-
-    vapi.start({
+    const config = {
       ...assistant,
       model: {
         ...assistant.model,
@@ -121,8 +125,9 @@ Interview Type: ${interviewType}
           },
         ],
       },
-      // ...other config
-    });
+    };
+    console.log("Starting Vapi call with config:", config);
+    vapi.start(config);
   };
 
   const stop = () => {
@@ -134,9 +139,11 @@ Interview Type: ${interviewType}
     if (callStatus == CALL_STATUS.ACTIVE) {
       stop();
     } else {
-      handleStartInterview("Software Engineer", "Behavioral");
+      setError("toggleCall requires explicit context. Use start().");
     }
   };
+
+  const clearError = () => setError(null);
 
   return {
     isSpeechActive,
@@ -144,9 +151,11 @@ Interview Type: ${interviewType}
     audioLevel,
     activeTranscript,
     messages,
-    start: handleStartInterview,
+    start,
     stop,
     toggleCall,
     transcript,
+    error,
+    clearError,
   };
 }

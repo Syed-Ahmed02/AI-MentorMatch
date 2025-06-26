@@ -101,11 +101,7 @@ Remember that your goal is to provide a realistic, supportive interview experien
       }
     ]
   },
-  voice: {
-    provider: "11labs", // Or another provider as needed
-    voiceId: "alex" // Replace with actual voiceId for Alex if available
-  },
-  firstMessage:
-    "Hello, I'm Alex, your AI interviewer. Let's begin your mock interview session!",
+  
+ 
   // Add serverUrl or other properties as needed
 };
