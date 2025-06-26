@@ -30,6 +30,7 @@
     "firebase-admin": "^13.4.0",
     "genkit": "^1.13.0",
     "llm-chunk": "^0.0.1",
+    "long": "^5.3.2",
     "lucide-react": "^0.523.0",
     "next": "15.3.4",
     "pdf-parse": "^1.1.1",

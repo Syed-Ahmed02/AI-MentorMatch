@@ -428,9 +428,21 @@ This platform helps newcomers overcome barriers to white-collar employment by pr
    # Vapi.ai
    VAPI_API_KEY=your_vapi_api_key
 
+   # Pinecone Vector Database
+   PINECONE_API_KEY=your_pinecone_api_key
+   PINECONE_INDEX_NAME=resume-index
+
    # App Configuration
    NEXT_PUBLIC_APP_URL=http://localhost:3000
    ```
+
+   **Pinecone Setup:**
+   1. Create a Pinecone account at [pinecone.io](https://pinecone.io)
+   2. Create a new index with:
+      - Name: `resume-index` (or your preferred name)
+      - Dimensions: `768` (for text-embedding-005 model)
+      - Metric: `cosine`
+   3. Copy your API key and index name to the environment variables above
 
 4. **Start with Docker**
    ```bash
@@ -564,6 +576,7 @@ Ensure all environment variables are set in your production environment:
 - OpenAI API key
 - Google Cloud credentials
 - Vapi.ai API key
+- Pinecone API key and index name
 
 ## 🤝 Contributing
 

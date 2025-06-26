@@ -99,7 +99,7 @@ export default function ResumeChat() {
       // Add a welcome message
       setMessages([{
         id: 'welcome',
-        text: data.message || `Resume "${file.name}" has been uploaded to Firebase Storage and indexed successfully! You can now ask questions about it.`,
+        text: data.message || `Resume "${file.name}" has been uploaded and indexed in Pinecone successfully! You can now ask questions about it.`,
         isUser: false,
         timestamp: new Date(),
       }]);
@@ -222,9 +222,9 @@ export default function ResumeChat() {
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Resume Chat Assistant (Firebase Storage + Context 7)</CardTitle>
+          <CardTitle>Resume Chat Assistant (Pinecone Vector Database)</CardTitle>
           <CardDescription>
-            Welcome, {currentUser.email}! Upload your resume to Firebase Storage and chat with an AI assistant using Context 7 retrieval
+            Welcome, {currentUser.email}! Upload your resume and chat with an AI assistant using Pinecone vector search
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -276,7 +276,7 @@ export default function ResumeChat() {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <p className="text-sm text-green-600">
-                  ✓ Resume uploaded to Firebase Storage and indexed successfully
+                  ✓ Resume uploaded and indexed in Pinecone successfully
                 </p>
                 <Button 
                   variant="outline" 
