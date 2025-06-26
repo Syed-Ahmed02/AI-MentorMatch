@@ -10,17 +10,23 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth();
   const router = useRouter();
   const [jobDescription, setJobDescription] = useState("");
   const [resumeSummary, setResumeSummary] = useState("");
   const [aiResult, setAiResult] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+  const [analyzeLoading, setAnalyzeLoading] = useState(false);
   const [error, setError] = useState("");
   const [interviewType, setInterviewType] = useState("technical");
   const [fetchingSummary, setFetchingSummary] = useState(true);
   const [selectedSession, setSelectedSession] = useState<SessionDocument | null>(null);
   const sidebarRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (!loading && currentUser === null) {
+      router.replace('/login');
+    }
+  }, [currentUser, loading, router]);
 
   useEffect(() => {
     async function fetchSummaryAndSessions() {
@@ -52,7 +58,7 @@ export default function DashboardPage() {
 
   async function handleAnalyze(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
+    setAnalyzeLoading(true);
     setError("");
     setAiResult(null);
     try {
@@ -85,7 +91,7 @@ export default function DashboardPage() {
     } catch (err: any) {
       setError(err.message || "Failed to analyze");
     } finally {
-      setLoading(false);
+      setAnalyzeLoading(false);
     }
   }
 
@@ -101,6 +107,14 @@ export default function DashboardPage() {
   const improvements = aiResult?.improvements || "";
   const resources = aiResult?.resources || [];
   const missingSkills = aiResult?.missingSkills || [];
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (currentUser === null) {
+    return null;
+  }
 
   if (fetchingSummary) {
     return <div className="min-h-screen flex items-center justify-center text-lg"><Loader2 className="animate-spin mr-2" />Loading your resume summary...</div>;
@@ -158,10 +172,10 @@ export default function DashboardPage() {
               <button
                 type="submit"
                 className="mt-4 w-full py-2 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition flex items-center justify-center gap-2"
-                disabled={loading || !resumeSummary || !jobDescription}
+                disabled={analyzeLoading || !resumeSummary || !jobDescription}
               >
-                {loading && <Loader2 className="animate-spin" />}
-                {loading ? "Analyzing..." : "Analyze Resume & Job"}
+                {analyzeLoading && <Loader2 className="animate-spin" />}
+                {analyzeLoading ? "Analyzing..." : "Analyze Resume & Job"}
               </button>
               {/* Only show error if it's not a session fetch error */}
               {error && !error.toLowerCase().includes('session') && (
