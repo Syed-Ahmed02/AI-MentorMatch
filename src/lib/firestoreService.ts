@@ -25,12 +25,34 @@ export interface ResumeDocument {
   uploadDate: any; // Firestore timestamp
   lastIndexed?: any; // Firestore timestamp
   documentsIndexed?: number;
-  status: 'uploaded' | 'indexed' | 'failed';
+  status: 'uploaded' | 'indexed' | 'failed' | 'analyzed';
+  score?: number;
+  strengths?: string;
+  improvements?: string;
+  missingSkills?: string[];
+  resources?: { skill: string; resources: string[] }[];
+  jobDescription?: string;
   error?: string;
+  summary?: string;
+}
+
+export interface SessionDocument {
+  id?: string;
+  userId: string;
+  resumeId: string; // Reference to resumes collection
+  jobDescription: string;
+  score?: number;
+  strengths?: string;
+  improvements?: string;
+  missingSkills?: string[];
+  resources?: { skill: string; resources: string[] }[];
+  summary?: string;
+  createdAt: any; // Firestore timestamp
 }
 
 export class FirestoreService {
   private collectionName = 'resumes';
+  private sessionCollection = 'sessions';
 
   /**
    * Add a new resume document to Firestore
@@ -166,6 +188,64 @@ export class FirestoreService {
     } catch (error) {
       console.error('Error getting user resume count:', error);
       return 0;
+    }
+  }
+
+  // SESSION METHODS
+  /**
+   * Add a new session document to Firestore
+   */
+  async addSession(sessionData: Omit<SessionDocument, 'id' | 'createdAt'>): Promise<string> {
+    try {
+      const docRef = await addDoc(collection(db, this.sessionCollection), {
+        ...sessionData,
+        createdAt: serverTimestamp(),
+      });
+      return docRef.id;
+    } catch (error) {
+      console.error('Error adding session to Firestore:', error);
+      throw new Error('Failed to save session');
+    }
+  }
+
+  /**
+   * Get all sessions for a specific user
+   */
+  async getUserSessions(userId: string): Promise<SessionDocument[]> {
+    try {
+      const q = query(
+        collection(db, this.sessionCollection),
+        where('userId', '==', userId),
+        orderBy('createdAt', 'desc')
+      );
+      const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as SessionDocument[];
+    } catch (error) {
+      console.error('Error getting user sessions:', error);
+      throw new Error('Failed to fetch user sessions');
+    }
+  }
+
+  /**
+   * Get a specific session by ID
+   */
+  async getSession(sessionId: string): Promise<SessionDocument | null> {
+    try {
+      const docSnap = await getDocs(query(collection(db, this.sessionCollection), where('__name__', '==', sessionId)));
+      if (docSnap.empty) {
+        return null;
+      }
+      const docData = docSnap.docs[0];
+      return {
+        id: docData.id,
+        ...docData.data()
+      } as SessionDocument;
+    } catch (error) {
+      console.error('Error getting session:', error);
+      throw new Error('Failed to fetch session');
     }
   }
 }

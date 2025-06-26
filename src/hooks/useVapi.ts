@@ -7,8 +7,9 @@ import {
     TranscriptMessage,
     TranscriptMessageTypeEnum,
   } from "../types/conversation.type";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { vapi } from "../lib/vapi.sdk";
+import { assistant } from "../app/assistants/assistant";
 
 export enum CALL_STATUS {
   INACTIVE = "inactive",
@@ -28,6 +29,8 @@ export function useVapi() {
     useState<TranscriptMessage | null>(null);
 
   const [audioLevel, setAudioLevel] = useState(0);
+
+  const [transcript, setTranscript] = useState<{ role: string; text: string }[]>([]);
 
   useEffect(() => {
     const onSpeechStart = () => setIsSpeechActive(true);
@@ -61,6 +64,15 @@ export function useVapi() {
         setMessages((prev) => [...prev, message]);
         setActiveTranscript(null);
       }
+      if (
+        message.type === MessageTypeEnum.TRANSCRIPT &&
+        message.transcriptType === TranscriptMessageTypeEnum.FINAL
+      ) {
+        setTranscript((prev) => [
+          ...prev,
+          { role: message.role, text: message.transcript },
+        ]);
+      }
     };
 
     const onError = (e: any) => {
@@ -88,12 +100,28 @@ export function useVapi() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const start = async () => {
-    setCallStatus(CALL_STATUS.LOADING);
-    const response = vapi.start(process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID || "");
+  const handleStartInterview = (jobDescription: string, interviewType: string) => {
+    const context = `
+Job Description: ${jobDescription}
+Interview Type: ${interviewType}
+    `;
+    const systemPromptWithContext = assistant.model.messages[0].content.replace(
+      "{{context}}",
+      context
+    );
 
-    response.then((res) => {
-      console.log("call", res);
+    vapi.start({
+      ...assistant,
+      model: {
+        ...assistant.model,
+        messages: [
+          {
+            role: "system",
+            content: systemPromptWithContext,
+          },
+        ],
+      },
+      // ...other config
     });
   };
 
@@ -106,7 +134,7 @@ export function useVapi() {
     if (callStatus == CALL_STATUS.ACTIVE) {
       stop();
     } else {
-      start();
+      handleStartInterview("Software Engineer", "Behavioral");
     }
   };
 
@@ -116,8 +144,9 @@ export function useVapi() {
     audioLevel,
     activeTranscript,
     messages,
-    start,
+    start: handleStartInterview,
     stop,
     toggleCall,
+    transcript,
   };
 }
