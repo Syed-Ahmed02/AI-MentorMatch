@@ -38,8 +38,8 @@ const DashboardSidebar = forwardRef(function DashboardSidebar({ onSelectSession,
 
   const navigationItems = [
     { name: 'Interviews', href: '/interviews', icon: '🎤' },
-    { name: 'Skills', href: '/skills', icon: '📊' },
-    { name: 'Resources', href: '/resources', icon: '📚' },
+    // { name: 'Skills', href: '/skills', icon: '📊' },
+    // { name: 'Resources', href: '/resources', icon: '📚' },
   ]
 
   return (

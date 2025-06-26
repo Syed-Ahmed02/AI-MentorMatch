@@ -4,8 +4,8 @@ export default function InterviewSidebar() {
   const navigationItems = [
     { name: 'Dashboard', href: '/dashboard', icon: '🏠' },
     { name: 'Interviews', href: '/interviews', icon: '🎤', active: true },
-    { name: 'Skills', href: '/skills', icon: '📊' },
-    { name: 'Resources', href: '/resources', icon: '📚' },
+    // { name: 'Skills', href: '/skills', icon: '📊' },
+    // { name: 'Resources', href: '/resources', icon: '📚' },
     { name: 'Profile', href: '/profile', icon: '👤' },
   ]
 
